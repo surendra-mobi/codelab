@@ -35,8 +35,7 @@ router.post('/add', function(req, res, next) {
 			"errors": errors
 		});
 	} else {
-		var categories = db.get('categories');
-		categories.insert({
+		Category.addCategory({
 			"name": name,
 		}, function(err, post){
 			if(err){

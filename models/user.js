@@ -2,71 +2,43 @@ var mongoose = require('mongoose');
 var bcrypt = require('bcryptjs');
 
 // User Schema
-var UserSchema = mongoose.Schema({
-	username: {
-		type: String
-	},
-	email: {
-		type: String
-	},
-	password:{
-		type:String,
-		bcrypt: true
-	},
-	type:{
-		type:String
-	}
-	
+var userSchema = mongoose.Schema({
+
+    local            : {
+        email        : String,
+        password     : String,
+    },
+    facebook         : {
+        id           : String,
+        token        : String,
+        email        : String,
+		img          : String,
+        name         : String
+    },
+    twitter          : {
+        id           : String,
+        token        : String,
+        displayName  : String,
+        username     : String
+    },
+    google           : {
+        id           : String,
+        token        : String,
+        email        : String,
+        name         : String
+    }
+
 });
 
-var User = module.exports = mongoose.model('User', UserSchema);
+// generating a hash
+userSchema.methods.generateHash = function(password) {
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+};
 
-// Get User By Id
-module.exports.getUserById = function(id, callback){
-	User.findById(id, callback);
-}
+// checking if password is valid
+userSchema.methods.validPassword = function(password) {
+    return bcrypt.compareSync(password, this.local.password);
+};
 
-// Get User by Username
-module.exports.getUserByUsername = function(username, callback){
-	var query = {username: username};
-	User.findOne(query, callback);
-}
-
-// Compare password
-module.exports.comparePassword = function(candidatePassword, hash, callback){
-	bcrypt.compare(candidatePassword, hash, function(err, isMatch){
-		if(err) throw err;
-		callback(null, isMatch);
-	});
-}
-
-// Create Student User
-module.exports.saveStudent = function(newUser, newStudent, callback){
-	bcrypt.hash(newUser.password, 10, function(err, hash){
-		if(err) throw errl
-		// Set hash
-		newUser.password = hash;
-		console.log('Student is being saved');
-		newUser.save(function(err, saved){
-    if (err) throw err;
-    newStudent.save(callback);
-  });
-		//async.parallel([newUser.save, newStudent.save], callback);
-	});
-}
-
-// Create Instructor User
-module.exports.saveInstructor = function(newUser, newInstructor, callback){
-	bcrypt.hash(newUser.password, 10, function(err, hash){
-		if(err) throw errl
-		// Set hash
-		newUser.password = hash;
-		console.log('Instructor is being saved');
-		newUser.save(function(err, saved){
-    if (err) throw err;
-    newInstructor.save(callback);
-  });
-		
-		//async.parallel([newUser.save, newInstructor.save], callback);
-	});
-}
+// create the model for users and expose it to our app
+module.exports = mongoose.model('User', userSchema);

@@ -1,0 +1,21 @@
+<div class="row">
+                <div class="col-12">
+				                      <h4 class="card-title">Edit Category</h4>
+<div class="card">
+                <div class="card-body">
+				<div class="col-md-6 col-lg-offset-3 ">
+        <form method="post" action="/techbooks/admin/categories/edit/{{category._id}}">
+  <div class="form-group">
+    <label for="name">Names</label>
+                <input name="name" id="name" type="text"  class="form-control" value="{{category.name}}" />
+              </label>
+            </div>
+          
+  <button type="submit" class="btn btn-primary">Submit</button>
+            
+          <input type="hidden" name="_csrf" value="{_csrf}">
+          </form>
+      </div>  
+    </div>
+  </div>  
+    </div>

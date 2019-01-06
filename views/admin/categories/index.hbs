@@ -1,0 +1,39 @@
+<div class="row">
+	<div class="col-12">
+	<h2 class="card-title">Categories</h2>
+		<div class="card">
+			<div class="card-body">
+				<div class="col-md-12 col-lg-offset-3 ">
+	<p><a href="/techbooks/admin/categories/add">Add Category</a></p>
+	 <div class="table-responsive">
+                    <table class="table table-striped">
+	  <thead>
+	    <tr>
+	      <th >ID</th>
+	      <th>Category Name</th>
+	      <th ></th>
+	      <th></th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	  	{{#each categories as |category|}}
+	    <tr>
+	      <td>{{category._id}}</td>
+	      <td>{{category.name}}</td>
+	      <td><a class="button" href="/techbooks/admin/categories/edit/{{category._id}}">Edit</a></td>
+	      <td>
+	      	 <form method="post" action="/manage/categories/delete/{{category._id}}">
+	      	<input type="submit" value="Delete" class="button alert" />
+	      	<input type="hidden" name="_csrf" value="{{_csrf}}" />
+	      	<input type="hidden" name="_method" value="DELETE" />
+	      </form>
+	      </td>
+	    </tr>
+	    {{/each}}
+	  </tbody>
+	</table>
+</div>
+
+</div>
+</div></div>
+</div>
