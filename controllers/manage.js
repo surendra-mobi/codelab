@@ -2,26 +2,48 @@ var express = require('express');
 
 var Book = require('../models/books/bookModel');
 var Category = require('../models/books/categoryModel');
+var User = require('../models/user.js');
+
 var router = express.Router();
 
 
     router.get('/', function (req, res) {   
         res.render('admin/index',{layout: 'admin/layout'});             
     });
-
+    router.get('/login', function (req, res) {   
+        res.render('admin/login',{layout: false});             
+    });
+	 router.get('/logout', function (req, res) {   
+        req.session.user = null;    
+       res.location('/techbooks/admin/login');
+       res.redirect('/techbooks/admin/login');        
+    });
+	router.post('/login', function (req, res) {   
+	   username =req.body.username;
+	    password=req.body.password;
+	    User.authenticate(username, password,function(err,user){
+			if(err){
+				res.location('/techbooks/admin/login');
+                res.redirect('/techbooks/admin/login');
+			}
+			if(user){
+				req.session.user={"id":user._id};
+				res.location('/techbooks/admin/books');
+                res.redirect('/techbooks/admin/books');
+			}else{
+				res.location('/techbooks/admin/login');
+                res.redirect('/techbooks/admin/login');
+			}
+		});
+        //res.render('admin/login',{layout: false});             
+    });
     // get Books
-    router.get('/books', function (req, res) {   
+    router.get('/books',checklogin, function (req, res) {   
         Book.find({}, function(err, books){
          	if(err){
          		console.log(err);
          	}
-
-         	/*var model = {
-         		books: books,
-				layout: 'admin/layout'
-         	}*/
-
-         	res.render('admin/books/index', {books: books,layout: 'admin/layout'});
+         	res.render('admin/books/index', {books: books,user:req.user, layout: 'admin/layout'});
          });             
     });
 
@@ -126,8 +148,8 @@ var router = express.Router();
             }
 
             req.flash('success', "Book Updated");
-            res.location('/manage/books');
-            res.redirect('/manage/books');
+            res.location('/techbooks/admin/books');
+            res.redirect('/techbooks/admin/books');
         });
 
     });
@@ -139,14 +161,14 @@ var router = express.Router();
                 console.log(err);
             }
             req.flash('success', "Book Deleted");
-            res.location('/manage/books');
-            res.redirect('/manage/books');
+            res.location('/techbooks/admin/books');
+            res.redirect('/techbooks/admin/books');
         });
     });
 
 
     // Get Categories
-    router.get('/categories', function (req, res) {   
+    router.get('/categories', checklogin, function (req, res) {   
         Category.find({}, function(err, categories){
             if(err){
                 console.log(err);
@@ -154,7 +176,7 @@ var router = express.Router();
 
           
 
-            res.render('admin/categories/index', {categories: categories, layout: 'admin/layout'}); 
+            res.render('admin/categories/index', {categories: categories, user:req.user, layout: 'admin/layout'}); 
         })              
     });
 
@@ -165,13 +187,13 @@ var router = express.Router();
 
 
     // Add a new category
-    router.post('/categories', function(req, res){          
+    router.post('/categories',checklogin, function(req, res){          
 
         var name= req.body.name && req.body.name.trim();
         if (name == '') {
             req.flash('error', "Please fill out required fields");
-            res.location('/manage/categories/add');
-            res.redirect('/manage/categories/add');
+            res.location('/techbooks/admin/categories/add');
+            res.redirect('/techbooks/admin/categories/add');
         }
 
         var newCategory = new Category({
@@ -227,10 +249,23 @@ var router = express.Router();
                 console.log(err);
             }
             req.flash('success', "Category Deleted");
-            res.location('/manage/categories');
-            res.redirect('/manage/categories');
+            res.location('/techbooks/admin/categories');
+            res.redirect('/techbooks/admin/categories');
         });
     });
-
-module.exports = router;
+	function checklogin(req, res, next){
+		if (req.session.user) {
+					User.findById(req.session.user.id, function(err, user) {
+						if(err){
+							res.redirect('/techbooks/admin/login');
+						}
+						req.user=user;
+						next();
+					});
+			
+		} else {
+			res.redirect('/techbooks/admin/login');
+			
+		}  
+	}
 module.exports = router;

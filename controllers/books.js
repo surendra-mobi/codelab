@@ -1,11 +1,20 @@
 'use strict';
+var express = require('express');
 
-var Book = require('../models/bookModel');
-var Category = require('../models/categoryModel');
+var Book = require('../models/books/bookModel');
+var Category = require('../models/books/categoryModel');
+var User = require('../models/user.js');
 
-module.exports = function(router){
+var router = express.Router();
+
 	router.get('/', function(req, res){
-		res.render('index');
+		 Book.find({},function(err,books){
+			 if(err){
+				 return console.log(err);
+			 }
+			 res.render('books/index',{books:books});
+		 });
+		
 	});
 
 	router.get('/details/:id', function(req, res){
@@ -22,4 +31,4 @@ module.exports = function(router){
 		});
 
 	});
-}
+module.exports=router;

@@ -14,6 +14,8 @@ var usersRouter = require('./routes/users');
 var postsRouter = require('./routes/posts');
 var categoriesRouter = require('./routes/categories');
 var techbooksAdminRouter = require('./controllers/manage');
+var techbooksRouter = require('./controllers/books');
+
 var userRouter = require('./controllers/user');
 
 var passport = require('passport');
@@ -106,6 +108,8 @@ app.use('/user', userRouter);
 app.use('/posts', postsRouter);
 app.use('/categories', categoriesRouter);
 app.use('/techbooks/admin', techbooksAdminRouter);
+app.use('/techbooks', techbooksRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
