@@ -1,70 +1,49 @@
-  var express = require('express');
-  var router = express.Router();
-var passport = require('passport');
+	var express = require('express');
+	var router = express.Router();
+	var passport = require('passport');
 
 	router.get('/', function(req, res) {
 		res.render('login/index');
 	});
-
-	// PROFILE SECTION =========================
 	router.get('/profile', isLoggedIn, function(req, res) {
-		res.render('login/profile', {
-			user : req.user
-		});
-	});
+		//app.set('view engine', 'ejs');
 
-	// LOGOUT ==============================
+		var usrObj= JSON.stringify(req.user);
+		
+		res.render('login/profile', {
+			user : usrObj
+		},  );
+	});
 	router.get('/logout', function(req, res) {
 		req.logout();
 		res.redirect('/');
 	});
-
-// =============================================================================
-// AUTHENTICATE (FIRST LOGIN) ==================================================
-// =============================================================================
-
-	// locally --------------------------------
-		// LOGIN ===============================
-		// show the login form
-		router.get('/login', function(req, res) {
-			res.render('login.ejs', { message: req.flash('loginMessage') });
-		});
-
-		// process the login form
-		router.post('login', passport.authenticate('local-login', {
-			successRedirect : '/user/profile', // redirect to the secure profile section
-			failureRedirect : '/login', // redirect back to the signup page if there is an error
-			failureFlash : true // allow flash messages
+	router.get('/login', function(req, res) {
+		res.render('login/login', { message: req.flash('loginMessage'),layout:"login/layout"  });
+	});
+		router.post('/login', passport.authenticate('local-login', {
+			successRedirect : '/user/profile',
+			failureRedirect : '/login',
+			failureFlash : true 
 		}));
 
-		// SIGNUP =================================
-		// show the signup form
 		router.get('/signup', function(req, res) {
-			res.render('login/signup', { message: req.flash('loginMessage') });
+			res.render('login/signup', { message: req.flash('loginMessage'), layout:"login/layout"  });
 		});
 
-		// process the signup form
-		router.post('signup', passport.authenticate('local-signup', {
-			successRedirect : '/user/profile', // redirect to the secure profile section
-			failureRedirect : '/signup', // redirect back to the signup page if there is an error
-			failureFlash : true // allow flash messages
+		router.post('/signup', passport.authenticate('local-signup', {
+			successRedirect : '/user/profile', 
+			failureRedirect : '/signup', 
+			failureFlash : true 
 		}));
-
-	// facebook -------------------------------
-
-		// send to facebook to do the authentication
 		router.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
 
-		// handle the callback after facebook has authenticated the user
 		router.get('/auth/facebook/callback',
 			passport.authenticate('facebook', {
 				successRedirect : '/user/profile',
 				failureRedirect : '/'
 			}));
 
-	// twitter --------------------------------
-
-		// send to twitter to do the authentication
 		router.get('/auth/twitter', passport.authenticate('twitter', { scope : 'email' }));
 
 		// handle the callback after twitter has authenticated the user

@@ -13,19 +13,117 @@
 	<link href="https://fonts.googleapis.com/css?family=Oswald:300,400,500,700|Roboto:300,400,700" rel="stylesheet">
 
 	<!-- Stylesheets -->
-	<link rel="stylesheet" href="/css/bootstrap.min.css"/>
-	<link rel="stylesheet" href="/css/font-awesome.min.css"/>
-	<link rel="stylesheet" href="/css/flaticon.css"/>
-	<link rel="stylesheet" href="/css/magnific-popup.css"/>
-	<link rel="stylesheet" href="/css/owl.carousel.css"/>
-	<link rel="stylesheet" href="/css/style.css"/>
-    <link rel="style" href="https://cdn.myntassets.com/web/assets/css/main.4d555def12281bd680af.css.gz">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
-	<!--[if lt IE 9]>
-	  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-	  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-	<![endif]-->
+	<link rel="stylesheet" href="/css/font-awesome.min.css"/>
+	<link rel="stylesheet" href="/css/style.css"/>
+    
   </head>
+  <style>
+ 
+ ul{
+	padding: 0;
+	margin: 0;
+}
+h1,h2,h3,h4,h5,h6,label,p{
+	margin:0;	
+}	
+.box_1{
+  float: right;
+  
+}
+
+.box_1 h3{
+  font-size: 1em;
+  padding: 0px;
+    float: left;
+}
+.box_1 h3 img{
+	margin-left: 5px;
+}
+.box_1 p{
+
+  float: left;
+}
+.box_1 p a{
+	font-size:1em;
+}
+.box_1 p a:hover{
+	color:#ff5d56;
+	text-decoration:underline;
+}
+.total {
+  display: inline-block;
+}
+ul.support {
+    float: left;
+}
+ul {
+    padding: 0;
+    list-style: none;
+}
+ul.support-right {
+    float: right;
+}
+ul.support li, ul.support-right li {
+    display: inline-block;
+    margin: .5em 0.8em .5em;
+}
+#div2 {
+ width: 275px;
+  position: absolute;
+  padding: 25px;
+  z-index: 3;
+  background-color: #FFFFFF;
+  color: #3E4152;
+  border: 1px solid #F5F5F6;
+  visibility: hidden;
+margin-left: -84px
+ }
+ #div_2 {
+ width: 275px;
+  position: absolute;
+  padding: 15px;
+  z-index: 3;
+  background-color: #FFFFFF;
+  color: #3E4152;
+  border: 1px solid #F5F5F6;
+  visibility: hidden;
+margin-left: -54px;
+ }
+
+.box_2:hover #div_2 {
+  visibility: visible;
+ }
+ .box_1:hover #div2 {
+  visibility: visible;
+ }
+ .box_2{
+  float: right;
+  
+}
+
+.box_2 h3{
+  font-size: 1em;
+  padding: 0px;
+    float: left;
+}
+.box_2 h3 img{
+	margin-left: 5px;
+}
+.box_2 p{
+
+  float: left;
+}
+.box_2 p a{
+	font-size:1em;
+}
+.box_2 p a:hover{
+	color:#ff5d56;
+	text-decoration:underline;
+}
+
+  </style>
   <body>
      
 	<!-- Page Preloder -->
@@ -39,6 +137,37 @@
 
 	<!-- Header section -->
 	<header class="header-section">
+	     <div class="header-info">
+			<div class="container">
+					<div class="header-top-in">
+						
+						<ul class="support">
+							<li><a href="mailto:info@example.com">
+							<i class="fa fa-envelope" aria-hidden="true"> </i>info@example.com</a></li>
+							<li><span><i class="fa fa-phone"> </i>0 462 261 61 61</span></li>			
+						</ul>
+						<ul class=" support-right">
+						     {{#if username}}
+							 <li>
+							 <div class="cart box_2">
+								<a href="">
+										Welcome {{username}}
+								</a>
+						    <div id="div_2"><p><a href="/user/profile">My Account</a><br><a href="/user/my-order">My Order</a></p></div>
+						<div class="clearfix"> </div>
+					</div>
+							 
+							 
+							 </li>
+							 {{else}}
+							<li><a href="/user/login"><i class="fa fa-address-book" aria-hidden="true"> </i>Login</a></li>
+							<li><a href="/user/signup"><i class="fa fa-unlock-alt" aria-hidden="true"></i>Create an Account</a></li>
+{{/if}}							
+						</ul>
+						<div class="clearfix"> </div>
+					</div>
+				</div>
+			</div>
 		<div class="logo">
 			<img src="img/logo.png" alt=""><!-- Logo -->
 		</div>
@@ -47,35 +176,37 @@
 		<nav>
 			<ul class="menu-list">
 				<li {{#ifCond tab '===' "/"}} class="active"  {{/ifCond}}><a  href="/">Home</a></li>
-				<li {{#ifCond tab '===' "/services"}} class="active"  {{/ifCond}}><a href="services">Services</a></li>
-				<li {{#ifCond tab '===' "/blog"}} class="active"  {{/ifCond}}><a href="blog">Blog</a></li>
-				<li {{#ifCond tab '===' "/contact"}} class="active"  {{/ifCond}} ><a href="contact">Contact</a></li>
-				<li {{#ifCond tab '===' "/techbooks"}} class="active"  {{/ifCond}} ><a href="techbooks">techbooks</a></li>
+				<li {{#ifCond tab '===' "/services"}} class="active"  {{/ifCond}}><a href="/services">Services</a></li>
+				<li {{#ifCond tab '===' "/blog"}} class="active"  {{/ifCond}}><a href="/blog">Blog</a></li>
+				<li {{#ifCond tab '===' "/contact"}} class="active"  {{/ifCond}} ><a href="/contact">Contact</a></li>
+				<li {{#ifCond tab '===' "/techbooks"}} class="active"  {{/ifCond}} ><a href="/techbooks">Techbooks</a></li>
+				<li><div class="cart box_1">
+						<a href="https://p.w3layouts.com/demos/i_wear/web/checkout.html">
+						<h3> <div class="total">
+							<span class="simpleCart_total">${{#if cart.total}} {{cart.total}} {{else}} 0 {{/if}} </span> (<span id="simpleCart_quantity" class="simpleCart_quantity">{{#if cart.qty}} {{cart.qty}} {{else}} 0 {{/if}}</span>)</div>
+							<img src="/books/img/cart.png" alt=""></h3>
+						</a>
+						    <div id="div2"><p><a href="javascript:;" class="simpleCart_empty">Empty Cart</a></p></div>
+						<div class="clearfix"> </div>
+					</div><li>
 			</ul>
 		</nav>
-		<div class="desktop-actions" data-reactid="516"><div class="desktop-user" data-reactid="517"><div class="desktop-userIconsContainer" data-reactid="518"><span class="myntraweb-sprite desktop-iconUser sprites-user" data-reactid="519"></span><span class="myntraweb-sprite desktop-caret sprites-caret" data-reactid="520"></span></div><div class="desktop-userActions" data-reactid="521"><div class="desktop-userActionsArrow" data-reactid="522"></div><div class="desktop-userActionsContent" data-reactid="523"><div class="desktop-contentInfo" data-reactid="524"><a href="" data-track="edit_profile" class="desktop-uaProfileLink" data-reactid="525"><div class="desktop-infoTitle" data-reactid="526">Your Account</div><div class="desktop-infoEmail" data-reactid="527">Access account and manage orders</div></a></div><div class="desktop-getUserInLinks desktop-getInLinks" data-reactid="528"><a href="/register?referer=https://www.myntra.com/" data-track="signup" class="desktop-linkButton" data-reactid="529">Sign up</a><a href="/login?referer=https://www.myntra.com/" data-track="login" class="desktop-linkButton" data-reactid="530">login</a></div></div></div></div><a href="/checkout/cart" class="desktop-cart" data-reactid="531"><span class="myntraweb-sprite desktop-iconBag sprites-bag" data-reactid="532"></span><span class="desktop-badge 
-                    desktop-grey" data-reactid="533">0</span></a></div>
+		
 	</header>
-	<!-- Header section end -->
     {{{body}}}
-	<!-- Contact section end-->
 
-
-	<!-- Footer section -->
 	<footer class="footer-section">
-		<h2>2017 All rights reserved. Designed by <a href="https://colorlib.com" target="_blank">Colorlib</a></h2>
+		<h2>2017 All rights reserved. Designed by <a href="#" target="_blank">SCODELABS</a></h2>
 	</footer>
-	<!-- Footer section end -->
+	
+	
+	
+	
+	
 
-
-
-
-	<!--====== Javascripts & Jquery ======-->
-	<script src="/js/jquery-2.1.4.min.js"></script>
-	<script src="/js/bootstrap.min.js"></script>
-	<script src="/js/magnific-popup.min.js"></script>
-	<script src="/js/owl.carousel.min.js"></script>
-	<script src="/js/circle-progress.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>	
+	
 	<script src="/js/main.js"></script>
   </body>
 </html>

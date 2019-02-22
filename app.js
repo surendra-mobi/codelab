@@ -15,6 +15,7 @@ var postsRouter = require('./routes/posts');
 var categoriesRouter = require('./routes/categories');
 var techbooksAdminRouter = require('./controllers/manage');
 var techbooksRouter = require('./controllers/books');
+var techbooksCartRouter = require('./controllers/cart');
 
 var userRouter = require('./controllers/user');
 
@@ -64,7 +65,10 @@ app.set('view engine', 'hbs');
       return ! RegExp(t).test(v) ? v : v.replace(t, t + ' selected="selected"')
     })
     .join('\n')
-})
+});
+hbs.registerHelper('encodeMyString',function(inputData){
+    return new hbs.SafeString(inputData);
+});
 }());
 
 app.use(logger('dev'));
@@ -103,12 +107,33 @@ app.use(expressValidator({
     };
   }
 }));
+  app.use(function(req, res, next){
+    var cart = req.session.cart;
+		var displayCart = {items: [], total:0, qty:0};
+		var total = 0;
+
+		// Get Total
+		for(var item in cart){
+			displayCart.items.push(cart[item]);
+			displayCart.qty +=cart[item].qty;
+			total += (cart[item].qty * cart[item].price);
+		}
+		displayCart.total = total;
+       app.locals.cart=displayCart;
+	   	if (req.isAuthenticated()){
+			app.locals.username=req.user.name;
+		}else{
+			app.locals.username=false;
+		}
+        next();
+  });
 app.use('/', indexRouter);
 app.use('/user', userRouter);
 app.use('/posts', postsRouter);
 app.use('/categories', categoriesRouter);
 app.use('/techbooks/admin', techbooksAdminRouter);
 app.use('/techbooks', techbooksRouter);
+app.use('/techbooks/cart', techbooksCartRouter);
 
 
 // catch 404 and forward to error handler
