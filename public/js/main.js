@@ -63,7 +63,6 @@ function heroSection() {
 		tick,
 		percentTime;
 
-	// Init the carousel
 	
 
 	// Init progressBar where elem is $("#owl-demo")
@@ -145,27 +144,7 @@ function videoPopup() {
 --------------------*/
 function testimonial() {
 	// testimonial Carousel 
-	$('#testimonial-slide').owlCarousel({
-		loop:true,
-		autoplay:true,
-		margin:30,
-		nav:false,
-		dots: true,
-		responsive:{
-			0:{
-				items:1
-			},
-			600:{
-				items:2
-			},
-			800:{
-				items:2
-			},
-			1000:{
-				items:2
-			}
-		}
-	});
+	
 }
 
 
