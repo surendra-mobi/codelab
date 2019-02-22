@@ -64,18 +64,7 @@ function heroSection() {
 		percentTime;
 
 	// Init the carousel
-	$('#hero-slider').owlCarousel({
-		loop: true,
-		nav: true,
-		items: 1,
-		autoHeight:true,
-		animateOut: 'fadeOut',
-		animateIn: 'fadeIn',
-		navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
-		onInitialized: progressBar,
-		onTranslated: moved,
-		onDrag: pauseOnDragging
-	});
+	
 
 	// Init progressBar where elem is $("#owl-demo")
 	function progressBar(){    
