@@ -131,10 +131,7 @@ function heroSection() {
 	Video Popup
 --------------------*/
 function videoPopup() {
-	$('.video-popup').magnificPopup({
-		type: 'iframe',
-		autoplay : true
-	});
+	
 }
 
 
