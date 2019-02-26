@@ -1,4 +1,3 @@
-'use strict';
 var express = require('express');
 
 var Book = require('../models/books/bookModel');
