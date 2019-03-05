@@ -11,9 +11,11 @@ var PostsSchema = mongoose.Schema({
 	body:{
 		type:String
 	},
-	file:{
+	mainimage:{
 		type:String
-	}
+	},
+	date:String,
+	author:String
 	
 });
 
@@ -33,5 +35,9 @@ module.exports.getPostById = function(id, callback){
 module.exports.addPost = function(info, callback){
     var postObj=new Post(info);
 	postObj.save(callback);
+	
+}
+module.exports.deletePost = function(id, callback){
+Post.deleteOne({_id:id},callback);
 	
 }

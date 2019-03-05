@@ -10,7 +10,6 @@ var upload = multer({ dest: 'uploads/' });
 var session = require('express-session');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 var postsRouter = require('./routes/posts');
 var categoriesRouter = require('./routes/categories');
 var techbooksAdminRouter = require('./controllers/manage');
@@ -26,6 +25,9 @@ var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
+const partialsPath = path.join(__dirname, 'views/partials');
+hbs.registerPartials(partialsPath);
+
 (function() {
     function checkCondition(v1, operator, v2) {
         switch(operator) {

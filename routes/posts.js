@@ -4,13 +4,22 @@ var multer = require('multer');
 var upload = multer({ dest: './public/images' })
 var Post = require('../models/post');
 var Category = require('../models/categories');
-
+var fs = require('fs');
+var path = require('path')
 router.get('/show/:id', function(req, res, next) {
 	Post.getPostById(req.params.id,function(err, post){
 		res.render('show',{
   			'post': post
   		});
 	});
+});
+
+router.get('/', function(req, res, next) {
+	Post.getPosts(function(err, posts){
+		res.render('postlist',{
+			'posts': posts
+		});
+	},1000);
 });
 
 router.get('/add', function(req, res, next) {
@@ -22,7 +31,20 @@ router.get('/add', function(req, res, next) {
 	},1000);
 
 });
-
+router.get('/edit/:id',function(req, res, next){
+	Post.getPostById(req.params.id,function(err, post){
+		res.render('edit/',{
+  			'post': post
+  		});
+	});
+});
+router.get('/delete/:id',function(req, res, next){
+	Post.deletePost(req.params.id,function(err){
+		if(err) console.log(err);
+		res.location('/posts');
+		res.redirect('/posts');
+	});
+});
 router.post('/add', upload.single('mainimage'), function(req, res, next) { 
   // Get Form Values
   var title = req.body.title;
@@ -30,10 +52,16 @@ router.post('/add', upload.single('mainimage'), function(req, res, next) {
   var body = req.body.body;
   var author = req.body.author;
   var date = new Date();
-  console.log(req.body);
   // Check Image Upload
   if(req.file){
-  	var mainimage = req.file.filename
+	  console.log(req.file);
+  	var mainimage = title+'-' + Date.now()+path.extname(req.file.originalname);
+	fs.rename('./public/images/'+req.file.filename, './public/images/'+mainimage, function (err) {
+		if (err) console.log(err);
+			fs.stat('./public/images/'+mainimage, function (err, stats) {
+			if (err) console.log(err);
+		});
+	});
   } else {
   	var mainimage = 'noimage.jpg';
   }
@@ -54,7 +82,6 @@ router.post('/add', upload.single('mainimage'), function(req, res, next) {
   		});
 	},1000);
 	} else {
-		console.log(Post);
 		Post.addPost({
 			"title": title,
 			"body": body,
@@ -110,7 +137,6 @@ router.post('/addcomment', function(req, res, next) {
 			if (err) throw err;
 
 			post.push({"comments":comment});
-			console.log("hi",post);
 return false;
 			post.save(function (err, updatedpost) {
 			if (err)  throw err;
@@ -127,7 +153,7 @@ return false;
 				"comments": comment
 			}
 		}, function(err, doc){
-console.log("hi",doc);
+
 return false;
 			if(err){
 				throw err;
