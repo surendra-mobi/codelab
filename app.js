@@ -15,7 +15,7 @@ var categoriesRouter = require('./routes/categories');
 var techbooksAdminRouter = require('./controllers/manage');
 var techbooksRouter = require('./controllers/books');
 var techbooksCartRouter = require('./controllers/cart');
-
+var moment = require('moment');
 var userRouter = require('./controllers/user');
 
 var passport = require('passport');
@@ -71,6 +71,20 @@ hbs.registerPartials(partialsPath);
 hbs.registerHelper('encodeMyString',function(inputData){
     return new hbs.SafeString(inputData);
 });
+hbs.registerHelper("formatDate", function(datetime, format) {
+	
+  if (moment) {
+    return moment(datetime).format(format);
+  }
+  else {
+    return datetime;
+  }
+});
+hbs.registerHelper('trimString', function(passedString,start,end) {
+    var theString = passedString.substring(start,end);
+    return new hbs.SafeString(theString);
+});
+
 }());
 
 app.use(logger('dev'));

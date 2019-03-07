@@ -20,8 +20,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-8 col-sm-7 blog-posts">
-				     {{#if posts}}
-					 {{#each posts as |post|}}
+				     
 					<!-- Post item -->
 					<div class="post-item">
 						<div class="post-thumbnail">
@@ -36,19 +35,12 @@
 							<div class="post-meta">
 								<a href="">{{#if post.coments.length}} {{post.coments.length}} Comments {{else}} 0 Comments {{/if}}</a>
 							</div>
-							<p>{{trimString post.body 0 800}}</p>
-							<a href="/blog/show/{{post.title}}-{{post._id}}" class="read-more">Read More</a>
+							<p>{{trimString post.body 0 10000}}</p>
 						</div>
 					</div>
-					{{/each}}
-					{{/if}}
 					
-					<!-- Pagination -->
-					<div class="page-pagination">
-						<a class="active" href="">01.</a>
-						<a href="">02.</a>
-						<a href="">03.</a>
-					</div>
+					
+					
 				</div>
 				<!-- Sidebar area -->
 				<div class="col-md-4 col-sm-5 sidebar">
