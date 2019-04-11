@@ -32,11 +32,13 @@ router.get('/add', function(req, res, next) {
 
 });
 router.get('/edit/:id',function(req, res, next){
+	var categories = Category.getCategories(function(err, categories){
 	Post.getPostById(req.params.id,function(err, post){
-		res.render('edit/',{
-  			'post': post
+		res.render('editpost',{
+  			'post': post,
+			'categories': categories
   		});
-	});
+	});},1000);
 });
 router.get('/delete/:id',function(req, res, next){
 	Post.deletePost(req.params.id,function(err){
@@ -100,7 +102,58 @@ router.post('/add', upload.single('mainimage'), function(req, res, next) {
 		});
 	}
 });
+router.post('/edit', upload.single('mainimage'), function(req, res, next) { 
+  var title = req.body.title;
+  var category= req.body.category;
+  var body = req.body.body;
+  var author = req.body.author;
+  var date = new Date();
+  var id = req.body.id;
+  if(req.file){
+  	var mainimage = title+'-' + Date.now()+path.extname(req.file.originalname);
+	fs.rename('./public/images/'+req.file.filename, './public/images/'+mainimage, function (err) {
+		    if (err) return console.log(err);
+			fs.stat('./public/images/'+mainimage, function (err, stats) {
+				if (err) return console.log(err);
+		    });
+	});
+  }else{
+	  var mainimage= req.body.mainimage_old;
+  }	  
 
+	req.checkBody('title','Title field is required').notEmpty();
+	req.checkBody('body', 'Body field is required').notEmpty();
+
+	// Check Errors
+	var errors = req.validationErrors();
+
+	if(errors){
+		var categories = Category.getCategories(function(err, categories){
+		res.render('addpost',{
+  			'title': 'Add Post',
+  			'categories': categories,
+			"errors": errors
+  		});
+	},1000);
+	} else {
+		Post.findOneAndUpdate({_id:id},{
+			"title": title,
+			"body": body,
+			"category": category,
+			"date": date,
+			"author": author,
+			"mainimage": mainimage
+		}, function(err, post){
+			if(err){
+				res.send(err);
+			} else {
+				req.flash('success','Post Added');
+				res.location('/');
+				res.redirect('/');
+			}
+		});
+	}
+});
 
 router.post('/addcomment', function(req, res, next) {
   // Get Form Values

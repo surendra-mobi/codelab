@@ -37,6 +37,7 @@ module.exports.addPost = function(info, callback){
 	postObj.save(callback);
 	
 }
+
 module.exports.deletePost = function(id, callback){
 Post.deleteOne({_id:id},callback);
 	

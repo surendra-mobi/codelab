@@ -13,6 +13,8 @@ var indexRouter = require('./routes/index');
 var postsRouter = require('./routes/posts');
 var categoriesRouter = require('./routes/categories');
 var techbooksAdminRouter = require('./controllers/manage');
+var postAdminRouter = require('./controllers/posts');
+
 var techbooksRouter = require('./controllers/books');
 var techbooksCartRouter = require('./controllers/cart');
 var moment = require('moment');
@@ -81,8 +83,11 @@ hbs.registerHelper("formatDate", function(datetime, format) {
   }
 });
 hbs.registerHelper('trimString', function(passedString,start,end) {
-    var theString = passedString.substring(start,end);
-    return new hbs.SafeString(theString);
+	if(end >0){
+		var theString = passedString.substring(start,end);
+		 return new hbs.SafeString(theString);
+	}
+    return new hbs.SafeString(passedString);
 });
 
 }());
@@ -150,6 +155,8 @@ app.use('/categories', categoriesRouter);
 app.use('/techbooks/admin', techbooksAdminRouter);
 app.use('/techbooks', techbooksRouter);
 app.use('/techbooks/cart', techbooksCartRouter);
+app.use('/admin/post', postAdminRouter);
+
 
 
 // catch 404 and forward to error handler
