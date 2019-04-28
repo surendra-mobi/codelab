@@ -154,7 +154,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 							<li><i class="fa fa-phone"> </i><span class="pd3">7042546051</span></li>			
 						</ul>
 						<ul class=" support-right">
-						     {{#if username}}
+						     <% if(username){%>
 							 <li>
 							 <div class="cart box_2">
 								<a href="">
@@ -166,17 +166,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 							 
 							 
 							 </li>
-							 {{else}}
-							<li><a href="/user/login"><i class="fa fa-address-book" aria-hidden="true"> </i><span class="pd3">Login</span></a></li>
+ <% }else{ %>							<li><a href="/user/login"><i class="fa fa-address-book" aria-hidden="true"> </i><span class="pd3">Login</span></a></li>
 							<li><a href="/user/signup"><i class="fa fa-unlock-alt" aria-hidden="true"></i><span class="pd3">Create an Account</span></a></li>
-{{/if}}							
+ <% } %>							
 						</ul>
 						<div class="clearfix"> </div>
 					</div>
 				</div>
 			</div>
 		<div class="logo">
-			<img src="img/logo.png" alt=""><!-- Logo -->
+			<img src="/img/logo.png" alt=""><!-- Logo -->
 		</div>
 		<!-- Navigation -->
 		<div class="responsive"><i class="fa fa-bars"></i></div>
@@ -187,7 +186,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 				<li {{#ifCond tab '===' "/blog"}} class="active"  {{/ifCond}}><a href="/blog">Blog</a></li>
 				<li {{#ifCond tab '===' "/contact"}} class="active"  {{/ifCond}} ><a href="/contact">Contact</a></li>
 				<li {{#ifCond tab '===' "/techbooks"}} class="active"  {{/ifCond}} ><a href="/techbooks">Techbooks</a></li>
-				<li><div class="cart box_1">
+				<li><!--div class="cart box_1">
 						<a href="https://p.w3layouts.com/demos/i_wear/web/checkout.html">
 						<h3> <div class="total">
 							<span class="simpleCart_total">${{#if cart.total}} {{cart.total}} {{else}} 0 {{/if}} </span> (<span id="simpleCart_quantity" class="simpleCart_quantity">{{#if cart.qty}} {{cart.qty}} {{else}} 0 {{/if}}</span>)</div>
@@ -195,24 +194,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 						</a>
 						    <div id="div2"><p><a href="javascript:;" class="simpleCart_empty">Empty Cart</a></p></div>
 						<div class="clearfix"> </div>
-					</div><li>
+					</div--><li>
 			</ul>
 		</nav>
 		
 	</header>
-    {{{body}}}
-
-	<footer class="footer-section">
-		<h2>2017 All rights reserved. Designed by <a href="#" target="_blank">SCODELABS</a></h2>
-	</footer>
-	
-	
-	
-	
-	
-
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>	
-	
-  </body>
-</html>

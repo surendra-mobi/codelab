@@ -51,10 +51,17 @@
 	router.get('/auth/google', passport.authenticate('google', { scope : ['profile', 'email'] }));
 
 	router.get('/auth/google/callback',
+	
+	 function(req, res, next) {
+		 if(req.query.destination){
+			 redirectUrl=req.query.destination;
+		 }else{
+			 redirectUrl="/user/profile";
+		 }
 		passport.authenticate('google', {
-			successRedirect : '/user/profile',
+			successRedirect : redirectUrl,
 			failureRedirect : '/'
-		}));
+		})(req, res, next);});
 
 	router.get('/connect/local', function(req, res) {
 		res.render('connect-local.ejs', { message: req.flash('loginMessage') });

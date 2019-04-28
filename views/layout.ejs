@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<title>Labs - Design Studio</title>
+	<meta charset="UTF-8">
+	<meta name="description" content="Labs - Design Studio">
+	<meta name="keywords" content="lab, onepage, creative, html">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Favicon -->
+	<link href="img/favicon.ico" rel="shortcut icon"/>
+
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Oswald:300,400,500,700|Roboto:300,400,700" rel="stylesheet">
+
+	<!-- Stylesheets -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<link rel="stylesheet" href="/css/font-awesome.min.css"/>
+	<link rel="stylesheet" href="/css/style.css"/>
+    <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-TM5VFN8');</script>
+<!-- End Google Tag Manager -->
+  </head>
+  <style>
+ 
+ ul{
+	padding: 0;
+	margin: 0;
+}
+h1,h2,h3,h4,h5,h6,label,p{
+	margin:0;	
+}	
+.box_1{
+  float: right;
+  
+}
+
+.box_1 h3{
+  font-size: 1em;
+  padding: 0px;
+    float: left;
+}
+.box_1 h3 img{
+	margin-left: 5px;
+}
+.box_1 p{
+
+  float: left;
+}
+.box_1 p a{
+	font-size:1em;
+}
+.box_1 p a:hover{
+	color:#ff5d56;
+	text-decoration:underline;
+}
+.total {
+  display: inline-block;
+}
+ul.support {
+    float: left;
+}
+ul {
+    padding: 0;
+    list-style: none;
+}
+ul.support-right {
+    float: right;
+}
+ul.support li, ul.support-right li {
+    display: inline-block;
+    margin: .5em 0.8em .5em;
+}
+#div2 {
+ width: 275px;
+  position: absolute;
+  padding: 25px;
+  z-index: 3;
+  background-color: #FFFFFF;
+  color: #3E4152;
+  border: 1px solid #F5F5F6;
+  visibility: hidden;
+margin-left: -84px
+ }
+ #div_2 {
+ width: 275px;
+  position: absolute;
+  padding: 15px;
+  z-index: 3;
+  background-color: #FFFFFF;
+  color: #3E4152;
+  border: 1px solid #F5F5F6;
+  visibility: hidden;
+margin-left: -54px;
+ }
+
+.box_2:hover #div_2 {
+  visibility: visible;
+ }
+ .box_1:hover #div2 {
+  visibility: visible;
+ }
+ .box_2{
+  float: right;
+  
+}
+
+.box_2 h3{
+  font-size: 1em;
+  padding: 0px;
+    float: left;
+}
+.box_2 h3 img{
+	margin-left: 5px;
+}
+.box_2 p{
+
+  float: left;
+}
+.box_2 p a{
+	font-size:1em;
+}
+.box_2 p a:hover{
+	color:#ff5d56;
+	text-decoration:underline;
+}
+.pd3{
+padding:3px;
+}
+
+  </style>
+  <body>
+     <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TM5VFN8"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+	<!-- Page Preloder -->
+	
+
+
+	<!-- Header section -->
+	<header class="header-section">
+	     <div class="header-info">
+			<div class="container">
+					<div class="header-top-in">
+						
+						<ul class="support">
+							<li><a href="mailto:info@example.com">
+							<i class="fa fa-envelope" aria-hidden="true"> </i><span class="pd3">kumarsm2405@gmail.com</span></a></li>
+							<li><i class="fa fa-phone"> </i><span class="pd3">7042546051</span></li>			
+						</ul>
+						<ul class=" support-right">
+						     <% if(username){%>
+							 <li>
+							 <div class="cart box_2">
+								<a href="">
+										Welcome {{username}}
+								</a>
+						    <div id="div_2"><p><a href="/user/profile">My Account</a><br><a href="/user/my-order">My Order</a><br><a href="/user/logout">Log Out</a></p></div>
+						<div class="clearfix"> </div>
+					</div>
+							 
+							 
+							 </li>
+ <% }else{ %>							<li><a href="/user/login"><i class="fa fa-address-book" aria-hidden="true"> </i><span class="pd3">Login</span></a></li>
+							<li><a href="/user/signup"><i class="fa fa-unlock-alt" aria-hidden="true"></i><span class="pd3">Create an Account</span></a></li>
+ <% } %>							<li><a href="/user/login"><i class="fa fa-address-book" aria-hidden="true"> </i><span class="pd3">Login</span></a></li>
+						</ul>
+						<div class="clearfix"> </div>
+					</div>
+				</div>
+			</div>
+		<div class="logo">
+			<img src="img/logo.png" alt=""><!-- Logo -->
+		</div>
+		<!-- Navigation -->
+		<div class="responsive"><i class="fa fa-bars"></i></div>
+		<nav>
+			<ul class="menu-list">
+				<li {{#ifCond tab '===' "/"}} class="active"  {{/ifCond}}><a  href="/">Home</a></li>
+				<li {{#ifCond tab '===' "/services"}} class="active"  {{/ifCond}}><a href="/services">Services</a></li>
+				<li {{#ifCond tab '===' "/blog"}} class="active"  {{/ifCond}}><a href="/blog">Blog</a></li>
+				<li {{#ifCond tab '===' "/contact"}} class="active"  {{/ifCond}} ><a href="/contact">Contact</a></li>
+				<li {{#ifCond tab '===' "/techbooks"}} class="active"  {{/ifCond}} ><a href="/techbooks">Techbooks</a></li>
+				<li><div class="cart box_1">
+						<a href="https://p.w3layouts.com/demos/i_wear/web/checkout.html">
+						<h3> <div class="total">
+							<span class="simpleCart_total">${{#if cart.total}} {{cart.total}} {{else}} 0 {{/if}} </span> (<span id="simpleCart_quantity" class="simpleCart_quantity">{{#if cart.qty}} {{cart.qty}} {{else}} 0 {{/if}}</span>)</div>
+							<img src="/books/img/cart.png" alt=""></h3>
+						</a>
+						    <div id="div2"><p><a href="javascript:;" class="simpleCart_empty">Empty Cart</a></p></div>
+						<div class="clearfix"> </div>
+					</div><li>
+			</ul>
+		</nav>
+		
+	</header>
+    {{{body}}}
+
+	<footer class="footer-section">
+		<h2>2017 All rights reserved. Designed by <a href="#" target="_blank">SCODELABS</a></h2>
+	</footer>
+	
+	
+	
+	
+	
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>	
+	
+  </body>
+</html>

@@ -25,7 +25,7 @@ router.get('/', function(req, res, next) {
 
 router.get('/add', function(req, res, next) {
 	var categories = Category.getCategories(function(err, categories){
-		res.render('addpost',{
+		res.render('admin/posts/addpost',{
   			'title': 'Add Post',
   			'categories': categories
   		});
@@ -35,7 +35,7 @@ router.get('/add', function(req, res, next) {
 router.get('/edit/:id',function(req, res, next){
 	var categories = Category.getCategories(function(err, categories){
 	Post.getPostById(req.params.id,function(err, post){
-		res.render('editpost',{
+		res.render('admin/posts/editpost',{
   			'post': post,
 			'categories': categories
   		});
@@ -78,7 +78,7 @@ router.post('/add', upload.single('mainimage'), function(req, res, next) {
 
 	if(errors){
 		var categories = Category.getCategories(function(err, categories){
-		res.render('addpost',{
+		res.render('admin/posts/addpost',{
   			'title': 'Add Post',
   			'categories': categories,
 			"errors": errors
@@ -130,12 +130,16 @@ router.post('/edit', upload.single('mainimage'), function(req, res, next) {
 
 	if(errors){
 		var categories = Category.getCategories(function(err, categories){
-		res.render('addpost',{
-  			'title': 'Add Post',
-  			'categories': categories,
-			"errors": errors
-  		});
-	},1000);
+		if (err) return console.log(err);
+		Post.getPostById(req.body.id,function(err, post){
+	    if (err) return console.log(err);
+
+		res.render('admin/posts/editpost',{
+		'post': post,
+		'categories': categories,
+		"errors": errors
+		});
+		});},1000);
 	} else {
 		Post.findOneAndUpdate({_id:id},{
 			"title": title,
@@ -148,9 +152,9 @@ router.post('/edit', upload.single('mainimage'), function(req, res, next) {
 			if(err){
 				res.send(err);
 			} else {
-				req.flash('success','Post Added');
-				res.location('/');
-				res.redirect('/');
+				req.flash('success','Post Updated');
+				res.location('/admin/post');
+				res.redirect('/admin/post');
 			}
 		});
 	}

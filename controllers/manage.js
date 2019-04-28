@@ -41,9 +41,10 @@ var router = express.Router();
     router.get('/books',checklogin, function (req, res) {   
         Book.find({}, function(err, books){
          	if(err){
-         		console.log(err);
+         		return console.log(err);
          	}
-         	res.render('admin/books/index', {books: books,user:req.user, layout: 'admin/layout'});
+			console.log(books);
+         	res.render('admin/books/index', {books: books,user:req.user});
          });             
     });
 

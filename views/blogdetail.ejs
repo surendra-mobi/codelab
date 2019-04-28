@@ -1,0 +1,354 @@
+	<%- include header.ejs %>
+
+<style>
+.search-form .form-group {
+  float: right !important;
+  transition: all 0.35s, border-radius 0s;
+ width: 100%;
+  border-radius: 4px 25px 25px 4px;
+  height: 32px;
+  background-color: #fff;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+  border-radius: 25px;
+  border: 1px solid #ccc;
+}
+.search-form .form-group input.form-control {
+  padding-right: 20px;
+  border: 0 none;
+  background: transparent;
+  box-shadow: none;
+  display:block;
+}
+
+
+.search-form .form-group span.form-control-feedback {
+  position: absolute;
+  top: -1px;
+  right: -2px;
+  z-index: 2;
+  display: block;
+  width: 34px;
+  height: 34px;
+  line-height: 34px;
+  text-align: center;
+  color: #3596e0;
+  left: initial;
+  font-size: 14px;
+}
+
+
+.titleBox {
+    background-color:#fdfdfd;
+    padding:10px;
+}
+.titleBox label{
+  color:#444;
+  margin:0;
+  display:inline-block;
+}
+
+.commentBox {
+    padding:10px;
+    border-top:1px dotted #bbb;
+}
+.commentBox .form-group:first-child, .actionBox .form-group:first-child {
+    width:80%;
+}
+.commentBox .form-group:nth-child(2), .actionBox .form-group:nth-child(2) {
+    width:18%;
+}
+.actionBox .form-group * {
+    width:100%;
+}
+.taskDescription {
+    margin-top:10px 0;
+}
+.commentList {
+    padding:0;
+    list-style:none;
+    max-height:200px;
+    overflow:auto;
+}
+.commentList li {
+    margin:0;
+    margin-top:10px;
+}
+.commentList li > div {
+    display:table-cell;
+}
+.commenterImage {
+    width:30px;
+    margin-right:5px;
+    height:100%;
+    float:left;
+}
+.commenterImage img {
+    width:100%;
+    border-radius:50%;
+}
+.commentText p {
+    margin:0;
+}
+.sub-text {
+    color:#aaa;
+    font-family:verdana;
+    font-size:11px;
+}
+.actionBox {
+    border-top:1px dotted #bbb;
+    padding:10px;
+}
+.modal{
+top:20% !important;
+}
+modal.h2 {
+  text-align: center;
+}
+
+modal.p {
+  text-align: center;
+  padding-top: 130px;
+ }
+.text-center {
+    text-align: center;
+	line-height: 48px ;
+	font-family: inherit ;
+}
+.btn-block-modal {
+    display: inline ;
+	width:auto ;
+}
+#model-text-center{
+margin-bottom: 24px ;
+margin-top: 4px ;
+}
+</style>
+
+<div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!--div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Basic Modal</h4>
+      </div-->
+      <div class="modal-body">
+	  <p class="text-center" style="">Sign up for a free account to make comment.</p>
+        <h3><div class="text-center social-btn" id="model-text-center">
+		     
+            <a href="/auth/facebook/callback?destination=<%=url; %>" class="btn btn-primary btn-block-modal"><i class="fa fa-facebook"></i> <b>Sign in with Facebook</b></a>
+			<a href="/user/auth/google/callback?destination=<%=url; %>" class="btn btn-danger btn-block-modal"><i class="fa fa-google"></i> <b>Sign in with Google</b></a>
+        </div></h3>
+      </div>
+      <!--div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div-->
+    </div>
+  </div>
+</div>
+
+
+	<!-- page section -->
+	<div class="page-section spad">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-9 col-sm-7 blog-posts">
+				     
+					<!-- Post item -->
+					<div class="post-item">
+						<div class="post-thumbnail">
+							<img src="/images/	<%= post.mainimage %>" alt="">
+							<div class="post-date">
+								<h2><%=moment(post['date']).format("DD") %></h2>
+								<h3><%=moment(post['date']).format("MMM YYYY") %></h3>
+							</div>
+						</div>
+						<div class="post-content">
+							<h2 class="post-title"><%=post.title %></h2>
+							<div class="post-meta">
+								<a href=""></a>
+							</div>
+							<p><%- post.body %></p>
+						</div>
+					</div>
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					<div class="detailBox">
+    <div class="titleBox">
+      <label>Comment Box</label>
+    </div>
+    <div class="commentBox">
+        
+        <p class="taskDescription">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+    </div>
+    <div class="actionBox">
+        <ul class="commentList">
+            <li>
+                <div class="commenterImage">
+                  <img src="http://placekitten.com/50/50" />
+                </div>
+                <div class="commentText">
+                    <p class="">Hello this is a test comment.</p> <span class="date sub-text">on March 5th, 2014</span>
+
+                </div>
+            </li>
+            <li>
+                <div class="commenterImage">
+                  <img src="http://placekitten.com/45/45" />
+                </div>
+                <div class="commentText">
+                    <p class="">Hello this is a test comment and this comment is particularly very long and it goes on and on and on.</p> <span class="date sub-text">on March 5th, 2014</span>
+
+                </div>
+            </li>
+            <li>
+                <div class="commenterImage">
+                  <img src="http://placekitten.com/40/40" />
+                </div>
+                <div class="commentText">
+                    <p class="">Hello this is a test comment.</p> <span class="date sub-text">on March 5th, 2014</span>
+
+                </div>
+            </li>
+        </ul>
+        <form class="form-inline" role="form">
+            <div class="form-group">
+                <input class="form-control" type="text" placeholder="Your comments" />
+            </div>
+            <div class="form-group">
+				<a href="#" class="btn btn-lg btn-success" data-toggle="modal" data-target="#basicModal">Add</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+					
+					
+				</div>
+				<!-- Sidebar area -->
+				<div class="col-md-3 col-sm-5 sidebar">
+					<div class="row">
+        <div class="col-md-12">
+            <form action="/blog" class="search-form">
+                <div class="form-group has-feedback">
+            		<label for="search" class="sr-only">Search</label>
+            		<input type="text" class="form-control" name="search" id="search" placeholder="search" value="">
+              		<span class="glyphicon glyphicon-search form-control-feedback"></span>
+            	</div>
+            </form>
+        </div>
+    </div>
+					<!-- Single widget -->
+					<div class="widget-item">
+						<h2 class="widget-title">Categories</h2>
+						<ul>
+						      <% if(categories.length){ 
+							  for(var i=0; i < categories.length; i++) {
+							 %>
+								
+							<li><a href="/blog?category=<%=categories[i]['name']; %>"><%=categories[i]['name']; %></a></li>
+							
+							<% }} %>
+		</ul>
+					</div>
+					<!-- Single widget -->
+					<div class="widget-item">
+						<h2 class="widget-title">Instagram</h2>
+						<ul class="instagram">
+							<li><img src="/img/instagram/1.jpg" alt=""></li>
+							<li><img src="/img/instagram/2.jpg" alt=""></li>
+							<li><img src="/img/instagram/3.jpg" alt=""></li>
+							<li><img src="/img/instagram/4.jpg" alt=""></li>
+							<li><img src="/img/instagram/5.jpg" alt=""></li>
+							<li><img src="/img/instagram/6.jpg" alt=""></li>
+						</ul>
+					</div>
+					<!-- Single widget -->
+					<div class="widget-item">
+						<h2 class="widget-title">Tags</h2>
+						<ul class="tag">
+							<li><a href="">branding</a></li>
+							<li><a href="">identity</a></li>
+							<li><a href="">video</a></li>
+							<li><a href="">design</a></li>
+							<li><a href="">inspiration</a></li>
+							<li><a href="">web design</a></li>
+							<li><a href="">photography</a></li>
+						</ul>
+					</div>
+					<!-- Single widget -->
+					<div class="widget-item">
+						<h2 class="widget-title">Quote</h2>
+						<div class="quote">
+							<span class="quotation">‘​‌‘​‌</span>
+							<p>Walking with a friend in the dark is better than walking alone in the light.</p>
+						</div>
+					</div>
+					<!-- Single widget -->
+					<div class="widget-item">
+						<h2 class="widget-title">Add</h2>
+						<div class="add">
+							<a href=""><img src="img/add.jpg" alt=""></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- page section end-->
+
+
+	<!-- newsletter section -->
+	<div class="newsletter-section spad">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-3">
+					<h2>Newsletter</h2>
+				</div>
+				<div class="col-md-9">
+					<!-- newsletter form -->
+					<form class="nl-form">
+						<input type="text" placeholder="Your e-mail here">
+						<button class="site-btn btn-2">Newsletter</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- newsletter section end-->
+
+	<%- include footer.ejs %>

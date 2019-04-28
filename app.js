@@ -3,7 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var hbs = require('hbs');
+//var hbs = require('hbs');
 var expressValidator = require('express-validator');
 var multer = require('multer');
 var upload = multer({ dest: 'uploads/' });
@@ -26,72 +26,7 @@ var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'hbs');
-const partialsPath = path.join(__dirname, 'views/partials');
-hbs.registerPartials(partialsPath);
-
-(function() {
-    function checkCondition(v1, operator, v2) {
-        switch(operator) {
-            case '==':
-                return (v1 == v2);
-            case '===':
-                return (v1 === v2);
-            case '!==':
-                return (v1 !== v2);
-            case '<':
-                return (v1 < v2);
-            case '<=':
-                return (v1 <= v2);
-            case '>':
-                return (v1 > v2);
-            case '>=':
-                return (v1 >= v2);
-            case '&&':
-                return (v1 && v2);
-            case '||':
-                return (v1 || v2);
-            default:
-                return false;
-        }
-    }
-
-    hbs.registerHelper('ifCond', function (v1, operator, v2, options) {
-        return checkCondition(v1, operator, v2)
-                    ? options.fn(this)
-                    : options.inverse(this);
-    });
-	hbs.registerHelper("select", function(value, options) {
-  return options.fn(this)
-    .split('\n')
-    .map(function(v) {
-      var t = 'value="' + value + '"'
-      return ! RegExp(t).test(v) ? v : v.replace(t, t + ' selected="selected"')
-    })
-    .join('\n')
-});
-hbs.registerHelper('encodeMyString',function(inputData){
-    return new hbs.SafeString(inputData);
-});
-hbs.registerHelper("formatDate", function(datetime, format) {
-	
-  if (moment) {
-    return moment(datetime).format(format);
-  }
-  else {
-    return datetime;
-  }
-});
-hbs.registerHelper('trimString', function(passedString,start,end) {
-	if(end >0){
-		var theString = passedString.substring(start,end);
-		 return new hbs.SafeString(theString);
-	}
-    return new hbs.SafeString(passedString);
-});
-
-}());
-
+app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

@@ -1,0 +1,195 @@
+
+<%- include header.ejs %>
+<style>
+.search-form .form-group {
+  float: right !important;
+  transition: all 0.35s, border-radius 0s;
+ width: 100%;
+  border-radius: 4px 25px 25px 4px;
+  height: 32px;
+  background-color: #fff;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+  border-radius: 25px;
+  border: 1px solid #ccc;
+}
+.search-form .form-group input.form-control {
+  padding-right: 20px;
+  border: 0 none;
+  background: transparent;
+  box-shadow: none;
+  display:block;
+}
+
+
+.search-form .form-group span.form-control-feedback {
+  position: absolute;
+  top: -1px;
+  right: -2px;
+  z-index: 2;
+  display: block;
+  width: 34px;
+  height: 34px;
+  line-height: 34px;
+  text-align: center;
+  color: #3596e0;
+  left: initial;
+  font-size: 14px;
+}
+
+</style>
+	
+
+	<!-- page section -->
+	<div class="page-section spad">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8 col-sm-7 blog-posts">
+					 <%if (posts.length > 0) { 
+					 for(var i=0; i < posts.length; i++) { %>
+
+					<!-- Post item -->
+					<div class="post-item">
+						<div class="post-thumbnail">
+							<img src="/images/<%=posts[i]['mainimage']%>" alt="">
+							<div class="post-date">
+								<h2><%=moment(posts[i]['date']).format("DD") %></h2>
+								<h3><%=moment(posts[i]['date']).format("MMM YYYY") %></h3>
+							</div>
+						</div>
+						<div class="post-content">
+							<h2 class="post-title"><%=posts[i]['title'];%></h2>
+							<div class="post-meta">
+								<a href=""><%if(posts[i]['coments']){ %> <%=posts[i]['coments'].length%><%}else{ %>0 <%}%>comments</a>
+							</div>
+							<p><%- posts[i]['body'].toString().substring(0, 300);%>.......</p>
+							<a href="/blog/show/<%=posts[i]['title'];%>-<%=posts[i]['_id'];%>" class="read-more">Read More</a>
+						</div>
+					</div>
+<% }} %>					
+					<!-- Pagination -->
+					<div class="page-pagination">
+				<% if (pages > 0) { %>
+                <ul class="pagination text-center">
+                    <% if (current == 1) { %>
+                        <li class="disabled"><a>First</a></li>
+                    <% } else { %>
+                        <li><a href="/blog?page=1">First</a></li>
+                    <% } %>
+                    <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
+                    <% if (i !== 1) { %>
+                        <li class="disabled"><a>...</a></li>
+                    <% } %>
+                    <% for (; i <= (Number(current) + 4) && i <= pages; i++) { %>
+                        <% if (i == current) { %>
+                            <li class="active"><a><%= i %></a></li>
+                        <% } else { %>
+                            <li><a href="/blog?page=<%= i %>"><%= i %></a></li>
+                        <% } %>
+                        <% if (i == Number(current) + 4 && i < pages) { %>
+                            <li class="disabled"><a>...</a></li>
+                        <% } %>
+                    <% } %>
+                    <% if (current == pages) { %>
+                        <li class="disabled"><a>Last</a></li>
+                    <% } else { %>
+                        <li><a href="/products?page=<%= pages %>">Last</a></li>
+                    <% } %>
+                </ul>
+            <% } %>
+					</div>
+				</div>
+				<!-- Sidebar area -->
+				<div class="col-md-4 col-sm-5 sidebar">
+					<!-- Single widget -->
+					<div class="row">
+        <div class="col-md-12">
+            <form action="" class="search-form">
+                <div class="form-group has-feedback">
+            		<label for="search" class="sr-only">Search</label>
+            		<input type="text" class="form-control" name="search" id="search" placeholder="search" value="<%=search%>">
+					<input type="hidden" class="form-control" name="category" id="category" value="<%=category%>">
+              		<span class="glyphicon glyphicon-search form-control-feedback"></span>
+            	</div>
+            </form>
+        </div>
+    </div>
+					<!-- Single widget -->
+					<div class="widget-item">
+						<h2 class="widget-title">Categories</h2>
+						<ul>
+						     <% if(categories.length){ 
+							  for(var i=0; i < categories.length; i++) {
+							 %>
+								
+							<li><a href="?category=<%=categories[i]['name']; %><%if(search){ %>&search=<%=search%><%}%>"><%=categories[i]['name']; %></a></li>
+							
+							<% }} %>
+		</ul>
+					</div>
+					<!-- Single widget -->
+					<div class="widget-item">
+						<h2 class="widget-title">Instagram</h2>
+						<ul class="instagram">
+							<li><img src="img/instagram/1.jpg" alt=""></li>
+							<li><img src="img/instagram/2.jpg" alt=""></li>
+							<li><img src="img/instagram/3.jpg" alt=""></li>
+							<li><img src="img/instagram/4.jpg" alt=""></li>
+							<li><img src="img/instagram/5.jpg" alt=""></li>
+							<li><img src="img/instagram/6.jpg" alt=""></li>
+						</ul>
+					</div>
+					<!-- Single widget -->
+					<div class="widget-item">
+						<h2 class="widget-title">Tags</h2>
+						<ul class="tag">
+							<li><a href="">branding</a></li>
+							<li><a href="">identity</a></li>
+							<li><a href="">video</a></li>
+							<li><a href="">design</a></li>
+							<li><a href="">inspiration</a></li>
+							<li><a href="">web design</a></li>
+							<li><a href="">photography</a></li>
+						</ul>
+					</div>
+					<!-- Single widget -->
+					<div class="widget-item">
+						<h2 class="widget-title">Quote</h2>
+						<div class="quote">
+							<span class="quotation">‘​‌‘​‌</span>
+							<p>Walking with a friend in the dark is better than walking alone in the light.</p>
+						</div>
+					</div>
+					<!-- Single widget -->
+					<div class="widget-item">
+						<h2 class="widget-title">Add</h2>
+						<div class="add">
+							<a href=""><img src="img/add.jpg" alt=""></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- page section end-->
+
+
+	<!-- newsletter section -->
+	<div class="newsletter-section spad">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-3">
+					<h2>Newsletter</h2>
+				</div>
+				<div class="col-md-9">
+					<!-- newsletter form -->
+					<form class="nl-form">
+						<input type="text" placeholder="Your e-mail here">
+						<button class="site-btn btn-2">Newsletter</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- newsletter section end-->
+
+<%- include footer.ejs %>
