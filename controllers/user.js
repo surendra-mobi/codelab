@@ -48,21 +48,20 @@
 			failureRedirect : '/'
 		}));
 
-	router.get('/auth/google', passport.authenticate('google', { scope : ['profile', 'email'] }));
-
-	router.get('/auth/google/callback',
-	
-	 function(req, res, next) {
-		 if(req.query.destination){
+	//router.get('/auth/google', passport.authenticate('google', { scope : ['profile', 'email'] }));
+    router.get('/auth/google',  function(req, res, next) {
+    if(req.query.destination){
 			 redirectUrl=req.query.destination;
-			 
 		 }else{
 			 redirectUrl="/user/profile";
 		 }
+		 req.session.destination=redirectUrl;
+	passport.authenticate('google', { scope : ['profile', 'email'] })});
+	router.get('/auth/google/callback',function(req, res, next) {
 		passport.authenticate('google', {
-			successRedirect : redirectUrl,
+			successRedirect : req.session.destination,
 			failureRedirect : '/'
-		})(req, res, next);});
+	})});
 
 	router.get('/connect/local', function(req, res) {
 		res.render('connect-local.ejs', { message: req.flash('loginMessage') });
