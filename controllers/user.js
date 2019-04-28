@@ -55,6 +55,7 @@
 	 function(req, res, next) {
 		 if(req.query.destination){
 			 redirectUrl=req.query.destination;
+			 
 		 }else{
 			 redirectUrl="/user/profile";
 		 }
