@@ -66,10 +66,9 @@ app.use(expressValidator({
   app.use(function(req, res, next){
 	 if(req.query.destination){
 		 redirectUrl=req.query.destination;
-	 }else{
-		 redirectUrl="/user/profile";
+		 req.session.destination=redirectUrl;
 	 }
-	 req.session.destination=redirectUrl;
+	 
     var cart = req.session.cart;
 		var displayCart = {items: [], total:0, qty:0};
 		var total = 0;
